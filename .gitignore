@@ -1,0 +1,6 @@
+*~
+coverage
+doc
+pkg
+*.gem
+.yardoc/
