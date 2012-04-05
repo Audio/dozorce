@@ -2,6 +2,7 @@ $LOAD_PATH << 'lib' << 'plugins'
 
 require 'cinch'
 require 'die'
+require 'youtube'
 
 
 bot = Cinch::Bot.new do
@@ -10,7 +11,7 @@ bot = Cinch::Bot.new do
         c.user = 'franta'
         c.server = "irc.rizon.net"
         c.channels = ["#abraka"]
-        c.plugins.plugins = [Die]
+        c.plugins.plugins = [Die, Youtube]
     end
 end
 
