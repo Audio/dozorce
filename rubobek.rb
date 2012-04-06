@@ -7,13 +7,12 @@ require 'youtube'
 
 bot = Cinch::Bot.new do
     configure do |c|
-        c.nick = 'rubobek'
-        c.user = 'franta'
+        c.nick = 'Zuckerberg'
+        c.user = 'rubobek'
         c.server = "irc.rizon.net"
-        c.channels = ["#abraka"]
+        c.channels = ["#soulwell"]
         c.plugins.plugins = [Die, Youtube]
     end
 end
 
 bot.start
-
