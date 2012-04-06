@@ -8,7 +8,7 @@ class Die
     match 'chcipni', use_prefix: false
 
     def execute(m)
-        m.target.action('chcípá')
+        m.target.action('se s vámi loučí')
         @bot.quit()
     end
 end

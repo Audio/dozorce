@@ -6,16 +6,11 @@ require 'open-uri'
 class Youtube
     include Cinch::Plugin
 
-    attr_reader :reg_long, :reg_short
+    @@long_url = /youtube\.com.*v=([^&$]{11})(&| |$)/
+    @@short_url = /youtu\.be\/([^&\?$]{11})(&| |$)/
 
-    def initialize(bot)
-        super(bot)
-        @reg_long = /youtube\.com.*v=([^&$]{11})(&| |$)/
-        @reg_short = /youtu\.be\/([^&\?$]{11})(&| |$)/
-    end
-
-    match @reg_long, use_prefix: false
-    match @reg_short, use_prefix: false
+    match @@long_url, use_prefix: false
+    match @@short_url, use_prefix: false
 
     def execute(m, video_id)
         m.reply( 'YouTube: ' + title(video_id) )
@@ -24,5 +19,13 @@ class Youtube
     def title(video_id)
         doc = Nokogiri::XML( open('http://gdata.youtube.com/feeds/api/videos/' + video_id) )
         return doc.xpath('//media:title').first.content
+    end
+
+    def long_url_pattern
+        @@long_url
+    end
+
+    def short_url_pattern
+        @@short_url
     end
 end
