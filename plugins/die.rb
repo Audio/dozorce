@@ -5,7 +5,7 @@ require 'cinch'
 class Die
     include Cinch::Plugin
 
-    match 'chcipni', use_prefix: false
+    match 'd'
 
     def execute(m)
         m.target.action('se s vámi loučí')
