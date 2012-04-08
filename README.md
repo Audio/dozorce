@@ -1,4 +1,4 @@
-> The best application I've ever try.
+> The best application I've ever tried.
 
 _Linus Torvalds_
 
