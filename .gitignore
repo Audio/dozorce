@@ -4,3 +4,4 @@ doc
 pkg
 *.gem
 .yardoc/
+.idea/
