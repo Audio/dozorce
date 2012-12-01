@@ -228,6 +228,11 @@ module Cinch
     # @since 2.1.0
     alias_method :authenticated?, :authed?
 
+    # @see Syncable#attr
+    def attr(attribute, data = true, unsync = false)
+      super
+    end
+
     # Queries the IRC server for information on the user. This will
     # set the User's state to not synced. After all information are
     # received, the object will be set back to synced.
@@ -368,7 +373,8 @@ module Cinch
         refresh
         @monitored_timer = Timer.new(@bot, interval: 30) {
           refresh
-        }.start
+        }
+        @monitored_timer.start
       end
 
       @monitored = true
@@ -383,7 +389,7 @@ module Cinch
       if @bot.irc.isupport["MONITOR"] > 0
         @bot.irc.send "MONITOR - #@name"
       else
-        @monitored_timer.stop
+        @monitored_timer.stop if @monitored_timer
       end
 
       @monitored = false

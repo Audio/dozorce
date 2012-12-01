@@ -244,8 +244,6 @@ module Cinch
 
         if msg.command == "PRIVMSG"
           events << [:message]
-        else
-          events << [:notice]
         end
 
         if msg.action?
@@ -492,11 +490,14 @@ module Cinch
 
     def on_nick(msg, events)
       if msg.user == @bot
-        @bot.set_nick msg.params.last
+        # @bot.set_nick msg.params.last
+        target = @bot
+      else
+        target = msg.user
       end
 
-      msg.user.update_nick(msg.params.last)
-      msg.user.online = true
+      target.update_nick(msg.params.last)
+      target.online = true
     end
 
     def on_part(msg, events)
@@ -543,8 +544,8 @@ module Cinch
       end
 
 
-      if msg.message =~ /^\001DCC SEND (\S+) (\d+) (\d+)(?: (\d+))?\001$/
-        process_dcc_send($1, $2, $3, $4, msg, events)
+      if msg.message =~ /^\001DCC SEND (?:"([^"]+)"|(\S+)) (\d+) (\d+)(?: (\d+))?\001$/
+        process_dcc_send($1 || $2, $3, $4, $5, msg, events)
       end
     end
 

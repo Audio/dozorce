@@ -176,6 +176,24 @@ module Cinch
       @target.safe_send(text)
     end
 
+    # Reply to a message with an action.
+    #
+    # @param [String] text the action message
+    # @return [void]
+    def action_reply(text)
+      text = text.to_s
+      @target.action(text)
+    end
+
+    # Like #action_reply, but using {Target#safe_action} instead
+    #
+    # @param (see #action_reply)
+    # @return (see #action_reply)
+    def safe_action_reply(text)
+      text = text.to_s
+      @target.safe_action(text)
+    end
+
     # Reply to a CTCP message
     #
     # @return [void]
@@ -228,9 +246,10 @@ module Cinch
       when Constants::RPL_NAMEREPLY.to_s
         @bot.channel_list.find_ensured(@params[2])
       else
-        if @params.first.start_with?("#")
+        chantypes = @bot.irc.isupport["CHANTYPES"]
+        if chantypes.include?(@params.first[0])
           @bot.channel_list.find_ensured(@params.first)
-        elsif numeric_reply? and @params[1].start_with?("#")
+        elsif numeric_reply? and chantypes.include?(@params[1][0])
           @bot.channel_list.find_ensured(@params[1])
         end
       end

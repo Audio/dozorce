@@ -35,6 +35,12 @@ module Cinch
         # @param [String] payload
         # @return [String]
         def generate(user, password, payload)
+          # duplicate the passed strings because we are modifying them
+          # later and they might come from the configuration store or
+          # similar
+          user     = user.dup
+          password = password.dup
+
           data = Base64.decode64(payload).force_encoding("ASCII-8BIT")
 
           p, g, y = unpack_payload(data)
@@ -49,18 +55,12 @@ module Cinch
           password << "." * (8 - (password.size % 8))
 
           crypted = ""
-          cipher = OpenSSL::Cipher.new("BF")
+          cipher = OpenSSL::Cipher.new("BF-ECB")
+          cipher.key_len = 32 # OpenSSL's default of 16 doesn't work
+          cipher.encrypt
+          cipher.key = secret
 
-          while password.size > 0 do
-            # We have to reinitialize this every time because for OpenSSL, "BF" is synonynmous with "BF-CBC", and we do not want CBC
-            cipher.reset
-            cipher.key_len = 32 # OpenSSL's default of 16 doesn't work
-            cipher.encrypt
-            cipher.key = secret
-
-            clear = password.slice!(0, 8)
-            crypted << cipher.update(clear) # we do not want the content of cipher.final
-          end
+          crypted = cipher.update(password) # we do not want the content of cipher.final
 
           answer = [public.bytesize, public, user, crypted].pack("na*Z*a*")
           Base64.strict_encode64(answer)
