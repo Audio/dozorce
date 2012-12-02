@@ -5,11 +5,8 @@ require 'open-uri'
 class Youtube
   include Cinch::Plugin
 
-  LONG_URL = /youtube\.com.*v=([^&$]{11})(&|#| |$)/
-  SHORT_URL = /youtu\.be\/([^&\?$]{11})(&|#| |$)/
-
-  match LONG_URL, use_prefix: false
-  match SHORT_URL, use_prefix: false
+  match /youtube\.com.*v=([^&$]{11})(&|#| |$)/, use_prefix: false
+  match /youtu\.be\/([^&\?$]{11})(&|#| |$)/, use_prefix: false
 
   def initialize(*args)
     super
@@ -20,6 +17,7 @@ class Youtube
     m.reply('YouTube: ' + title(video_id) )
   end
 
+  private
   def title(video_id)
     unless @cache.has_key?(video_id)
       doc = Nokogiri::XML( open('http://gdata.youtube.com/feeds/api/videos/' + video_id) )
