@@ -1,5 +1,4 @@
 $LOAD_PATH << 'plugins'
-
 require 'youtube'
 
 

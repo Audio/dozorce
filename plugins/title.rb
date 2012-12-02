@@ -1,5 +1,4 @@
-require 'cinch'
-require 'webpage'
+require_relative '../utils/webpage'
 
 
 class Title

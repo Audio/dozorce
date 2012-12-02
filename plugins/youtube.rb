@@ -1,4 +1,3 @@
-require 'cinch'
 require 'nokogiri'
 require 'open-uri'
 

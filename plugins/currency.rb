@@ -1,4 +1,3 @@
-require 'cinch'
 require 'open-uri'
 require 'uri'
 

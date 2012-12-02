@@ -1,17 +1,11 @@
-$LOAD_PATH << 'lib' << 'utils' << 'plugins'
-
 require 'cinch'
-require 'currency'
-require 'die'
-require 'eval'
-require 'title'
-require 'youtube'
+Dir["./plugins/*.rb"].each { |file| require_relative file }
 
 
 bot = Cinch::Bot.new do
   configure do |c|
-    c.nick = 'TomHanks'
-    c.user = 'halyvud'
+    c.nick = 'Kapustnak'
+    c.user = 'dozorce'
     c.server = "irc.rizon.net"
     c.channels = ["#abraka"]
     c.plugins.plugins = [Currency, Die, Eval, Title, Youtube]
