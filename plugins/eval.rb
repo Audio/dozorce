@@ -5,7 +5,7 @@ require 'stringio'
 class Eval
   include Cinch::Plugin
 
-  match /^.rb +(.+)/, use_prefix: false
+  match /rb +(.+)/
 
   def execute(m, code)
     sio = StringIO.new
