@@ -7,8 +7,8 @@ class YoutubeTest < TestCase
   def initialize(name)
     super(name)
     youtube = Youtube.new(@bot)
-    @reg_long = youtube.long_url_pattern
-    @reg_short = youtube.short_url_pattern
+    @reg_long = Youtube::LONG_URL
+    @reg_short = Youtube::SHORT_URL
   end
 
   test "Long URLs regex matching" do
