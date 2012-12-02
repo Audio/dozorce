@@ -3,12 +3,12 @@ require 'cinch'
 
 
 class Die
-    include Cinch::Plugin
+  include Cinch::Plugin
 
-    match 'd'
+  match 'd'
 
-    def execute(m)
-        m.target.action('se s vámi loučí')
-        @bot.quit()
-    end
+  def execute(m)
+    m.target.action('se s vámi loučí')
+    @bot.quit()
+  end
 end

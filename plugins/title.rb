@@ -3,11 +3,11 @@ require 'webpage'
 
 
 class Title
-    include Cinch::Plugin
+  include Cinch::Plugin
 
-    match /^t +(http.+)/, use_prefix: false
+  match /^t +(http.+)/, use_prefix: false
 
-    def execute(m, url)
-        m.reply( WebPage.new(url).title )
-    end
+  def execute(m, url)
+    m.reply( WebPage.new(url).title )
+  end
 end
