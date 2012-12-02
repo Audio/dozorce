@@ -1,36 +1,12 @@
-require 'cinch'
-require 'rspec'
+require_relative 'spec_helper'
 require_relative '../plugins/youtube'
 
 
 describe Youtube do
-  before(:each) do
-    @bot = Cinch::Bot.new {
-      configure { |c| c.plugins.plugins = [Youtube] }
-      loggers.level = :error
-    }
-    @plugin = Youtube.new(@bot)
-  end
+  include SpecHelper
 
-  def message(text)
-    double('Cinch::Message', :message => text)
-  end
-
-  def should_respond(matcher, plain_messages)
-    plain_messages.each { |plain|
-      m = message(plain)
-      matchdata = matcher[:pattern].match(m.message)
-      matchdata.nil?.should be false
-      m.should_receive(:reply)
-      @plugin.send(matcher[:method], m, matchdata[1])
-    }
-  end
-
-  def should_not_respond(matcher, plain_messages)
-    plain_messages.each { |plain|
-      m = message(plain)
-      matcher[:pattern].match(m.message).nil?.should be true
-    }
+  before(:all) do
+    initialize_plugin(Youtube)
   end
 
   it "should respond to long and short URLs" do
