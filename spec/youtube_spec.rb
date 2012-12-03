@@ -13,7 +13,7 @@ describe Youtube do
     @plugin.class.matchers.size.should be 2
   end
 
-  it "should be influenced by prefixes" do
+  it "should not be used with prefixes" do
     @plugin.class.matchers.each { |matcher| matcher[:use_prefix].should be false }
   end
 
