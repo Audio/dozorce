@@ -8,7 +8,7 @@ bot = Cinch::Bot.new do
     c.user = 'dozorce'
     c.server = "irc.rizon.net"
     c.channels = ["#abraka"]
-    c.plugins.plugins = [Currency, Die, Eval, Title, Youtube]
+    c.plugins.plugins = [Calculator, Die, Eval, Title, Youtube]
     c.plugins.prefix = '.'
   end
 end

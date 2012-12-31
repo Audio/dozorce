@@ -1,12 +1,12 @@
 require_relative 'spec_helper'
-require_relative '../plugins/currency'
+require_relative '../plugins/calculator'
 
 
-describe Currency do
+describe Calculator do
   include SpecHelper
 
   before(:all) do
-    initialize_plugin(Currency)
+    initialize_plugin(Calculator)
   end
 
   it "should respond to prefixed and unprefixed messages" do

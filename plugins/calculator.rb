@@ -2,7 +2,7 @@ require 'open-uri'
 require 'uri'
 
 
-class Currency
+class Calculator
   include Cinch::Plugin
 
   @pattern = /^\d+((\.|,)\d+)? +[a-zA-Z]+ +to +[a-zA-Z]+$/
@@ -20,6 +20,6 @@ class Currency
 
   def parse(json)
     p = json.split(",")
-    (p[2].split("\"").length > 1) ? "Asi incorrect syntax nebo co." : p[0].split("\"")[1] + " = " + p[1].split("\"")[1]
+    (p[2].split("\"").length > 1) ? "Incorrect syntax." : p[0].split("\"")[1] + " = " + p[1].split("\"")[1]
   end
 end
