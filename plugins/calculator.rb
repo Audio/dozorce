@@ -1,20 +1,19 @@
 require 'open-uri'
-require 'uri'
+require 'cgi'
 
 
 class Calculator
   include Cinch::Plugin
 
-  @pattern = /^\d+((\.|,)\d+)? +[a-zA-Z]+ +to +[a-zA-Z]+$/
-  match @pattern, prefix: /\.c/
-  match @pattern, use_prefix: false
+  match /c +(.+)/
+  match /^(\d+(?:(?:\.|,)\d+)? +[a-zA-Z]+ +to +[a-zA-Z]+)$/, use_prefix: false
 
-  def execute(m)
-    m.reply(calc m.message)
+  def execute(m, query)
+    m.reply(calc query)
   end
 
   def calc(query)
-    io = open("http://www.google.com/ig/calculator?hl=en&q=" + URI.escape(query) )
+    io = open("http://www.google.com/ig/calculator?hl=en&q=#{CGI.escape(query)}")
     parse(io.string)
   end
 

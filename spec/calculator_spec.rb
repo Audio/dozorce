@@ -16,17 +16,16 @@ describe Calculator do
   it "should respond to prefixed messages" do
     should_respond(
       @plugin.class.matchers.first,
-      [ '.c 15 usd to czk',
-        '.c 17.2 usd to czk',
-        '.c 17,2 usd to czk']
+      [ 'c 15 usd to czk',
+        'c 17.2 usd to czk',
+        'c 9 + 9']
     )
   end
 
-  it "should not respond to invalid prefixed messages" do
-    should_not_respond(
+  it "should respond to possibly invalid prefixed messages" do
+    should_respond(
       @plugin.class.matchers.first,
-      [ '.c ahoj :))',
-        '.c 17.a usd to czk' ]
+      [ 'c 17.a usd to czk' ]
     )
   end
 
