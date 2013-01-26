@@ -13,7 +13,7 @@ class Bash
   end
 
   def download_parse
-    page = WebPage.load('http://bash.org/?random1')
+    page = WebPage.load_html('http://bash.org/?random1')
     quotes = BashParser.get_quotes(page)
     quotes.sort!
     quotes = quotes[0..9]
@@ -22,7 +22,7 @@ class Bash
 
   def take_one(quotes)
     max_lines_limit = 6
-    quotes.each { |q| return q if q.lines <= max_lines_limit }
+    quotes.each { |q| return q if q.line_count <= max_lines_limit }
     quotes[0]
   end
  end
@@ -35,8 +35,8 @@ class BashQuote
     @id, @content, @score = id, content, score
   end
 
-  def lines
-    content.size
+  def line_count
+    @content.size
   end
 
   def <=>(other)

@@ -1,5 +1,5 @@
 require 'cgi'
-require 'open-uri'
+require_relative '../utils/webpage'
 
 
 class Calculator
@@ -13,8 +13,8 @@ class Calculator
   end
 
   def calc(query)
-    io = open("http://www.google.com/ig/calculator?hl=en&q=#{CGI.escape(query)}")
-    parse(io.string)
+    json = WebPage.load_plain("http://www.google.com/ig/calculator?hl=en&q=#{CGI.escape(query)}")
+    parse(json)
   end
 
   def parse(json)

@@ -1,5 +1,4 @@
-require 'nokogiri'
-require 'open-uri'
+require_relative '../utils/webpage'
 
 
 class Youtube
@@ -14,13 +13,13 @@ class Youtube
   end
 
   def execute(m, video_id)
-    m.reply('YouTube: ' + title(video_id) )
+    m.reply("YouTube: #{title(video_id)}")
   end
 
   private
   def title(video_id)
     unless @cache.has_key?(video_id)
-      doc = Nokogiri::XML( open('http://gdata.youtube.com/feeds/api/videos/' + video_id) )
+      doc = WebPage.load_xml("http://gdata.youtube.com/feeds/api/videos/#{video_id}")
       @cache[video_id] = doc.xpath('//media:title').first.content
     end
 

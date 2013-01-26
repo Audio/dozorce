@@ -1,6 +1,5 @@
 require 'cgi'
-require 'json'
-require 'open-uri'
+require_relative '../utils/webpage'
 
 
 class Google
@@ -13,8 +12,9 @@ class Google
   end
 
   def search(query)
-    io = open("http://ajax.googleapis.com/ajax/services/search/web?v=1.0&safe=off&q=#{CGI.escape(query)}")
-    result = JSON.parse(io.string, {:symbolize_names => true})[:responseData][:results][0]
+    url = "http://ajax.googleapis.com/ajax/services/search/web?v=1.0&safe=off&q=#{CGI.escape(query)}"
+    json = WebPage.load_json(url)
+    result = json[:responseData][:results][0]
     CGI.unescapeHTML "#{result[:unescapedUrl]} #{result[:titleNoFormatting]}"
   rescue
     "No result"
