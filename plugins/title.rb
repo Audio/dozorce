@@ -7,6 +7,6 @@ class Title
   match /t +(http.+)/
 
   def execute(m, url)
-    m.reply( WebPage.new(url).title )
+    m.reply( WebPage.load(url).title )
   end
 end

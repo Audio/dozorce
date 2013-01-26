@@ -1,5 +1,5 @@
-require 'open-uri'
 require 'cgi'
+require 'open-uri'
 
 
 class Calculator

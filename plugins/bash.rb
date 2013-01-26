@@ -13,7 +13,7 @@ class Bash
   end
 
   def download_parse
-    page = WebPage.new('http://bash.org/?random1').content
+    page = WebPage.load('http://bash.org/?random1')
     quotes = BashParser.get_quotes(page)
     quotes.sort!
     quotes = quotes[0..9]
