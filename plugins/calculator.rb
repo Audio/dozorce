@@ -13,12 +13,8 @@ class Calculator
   end
 
   def calc(query)
-    json = WebPage.load_plain("http://www.google.com/ig/calculator?hl=en&q=#{CGI.escape(query)}")
-    parse(json)
-  end
-
-  def parse(json)
-    p = json.split(",")
-    (p[2].split("\"").length > 1) ? "Incorrect syntax." : p[0].split("\"")[1] + " = " + p[1].split("\"")[1]
+    url = "http://www.google.com/ig/calculator?hl=cs&q=#{CGI.escape(query)}"
+    json = WebPage.load_json(url) { |str| str.gsub(/(\w+): /, '"\1":') }
+    json[:error].length > 1 ? "No result" : "#{json[:lhs]} = #{json[:rhs]}"
   end
 end

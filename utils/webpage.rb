@@ -17,8 +17,10 @@ class WebPage
     Nokogiri::XML( self.load(url) )
   end
 
-  def self.load_json(url)
-    JSON.parse( self.load(url), {:symbolize_names => true} )
+  def self.load_json(url, &block)
+    str = self.load(url).string
+    str = yield str if block_given?
+    JSON.parse(str, {:symbolize_names => true})
   end
 
   private
