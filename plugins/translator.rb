@@ -6,10 +6,10 @@ class Translator
   include Cinch::Plugin
 
   # cs en "dog"? / cs to en "dog"? / "dog"?
-  match /(?:(\w{2}) +(?:to)? *(\w{2}) +)?"(.+)"\?/, use_prefix: false
+  match /^(?:(\w{2}) +(?:to)? *(\w{2}) +)?"(.+)"\?$/, use_prefix: false
 
   # en to cz dog
-  match /(\w{2}) +to +(\w{2}) +(.+)/, use_prefix: false
+  match /^(\w{2}) +to +(\w{2}) +(.+)$/, use_prefix: false
 
   def execute(m, lang_from, lang_to, text)
     m.reply( translate(text, lang_from, lang_to), true)
