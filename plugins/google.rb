@@ -5,7 +5,7 @@ require_relative '../utils/webpage'
 class Google
   include Cinch::Plugin
 
-  match /g(?:oogle)? (.+)/
+  match /go(?:ogle)? (.+)/
 
   def execute(m, query)
     m.reply( search(query), true)
