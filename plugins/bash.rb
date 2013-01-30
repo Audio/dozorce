@@ -4,6 +4,8 @@ require_relative '../utils/webpage'
 class Bash
   include Cinch::Plugin
 
+  set :help, 'bash - prints a random quote from bash.org database'
+
   match /^bash$/, use_prefix: false
 
   def execute(m)

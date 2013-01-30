@@ -4,6 +4,8 @@
 class Die
   include Cinch::Plugin
 
+  set :help, 'die - the bot will immediately quit'
+
   match 'd'
 
   def execute(m)

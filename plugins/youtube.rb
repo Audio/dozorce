@@ -4,6 +4,8 @@ require_relative '../utils/webpage'
 class Youtube
   include Cinch::Plugin
 
+  set :help, 'YouTube plugin automatically prints video titles from detected URLs.'
+
   match /youtube\.com.*v=([^&$]{11})(&|#| |$)/, use_prefix: false
   match /youtu\.be\/([^&\?$]{11})(&|#| |$)/, use_prefix: false
 

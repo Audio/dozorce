@@ -5,6 +5,8 @@ require_relative '../utils/webpage'
 class Translator
   include Cinch::Plugin
 
+  set :help, '[source-lang] [to-lang] "[query]"? - translates the query string. Lang parameters are optional. Example: en cs "dog"? OR en to cz dog'
+
   # cs en "dog"? / cs to en "dog"? / "dog"?
   match /^(?:(\w{2}) +(?:to)? *(\w{2}) +)?"(.+)"\?$/, use_prefix: false
 

@@ -5,6 +5,8 @@ require 'stringio'
 class Eval
   include Cinch::Plugin
 
+  set :help, 'rb [expr] - evaluates given ruby expression. Example: rb 5.times { |i| print i*2 }'
+
   match /rb +(.+)/
 
   def execute(m, code)

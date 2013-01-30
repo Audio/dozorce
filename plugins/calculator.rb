@@ -5,6 +5,8 @@ require_relative '../utils/webpage'
 class Calculator
   include Cinch::Plugin
 
+  set :help, 'c [formula] - calculates the formula. Example: c (5 + 6) / 2'
+
   match /c +(.+)/
   match /^(\d+(?:(?:\.|,)\d+)? +[a-zA-Z]+ +to +[a-zA-Z]+)$/, use_prefix: false
 
