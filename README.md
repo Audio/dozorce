@@ -20,9 +20,9 @@ Usage: ```bash```
 ### Calculator
 Calculates given formula.
 
-Usage: ```c [formula]```
+Usage: ```c [formula]``` or ```[number] [unit1] to [unit2]```
 
-Example: ```c (5 + 6) / 2```
+Example: ```c (5 + 6) / 2``` or ```18 stones to kg```
 
 
 ### Die
