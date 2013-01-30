@@ -5,7 +5,7 @@ require_relative '../utils/webpage'
 class Google
   include Cinch::Plugin
 
-  set :help, 'go(ogle) [query] - returns first result for Google Search. Example: go cinema in Prague'
+  set :help, 'go(ogle) [query] - returns the first result via Google Search. Example: go cinema in Prague'
 
   match /go(?:ogle)? (.+)/
 

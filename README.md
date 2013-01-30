@@ -8,7 +8,7 @@ See installation steps and usage instructions on the [cinch project page](https:
 
 
 ## Plugins
-Sample usage without having the global prefix set on.
+[suppose that the global plugin prefix is off]
 
 
 ### Bash
@@ -32,7 +32,7 @@ Usage: ```die```
 
 
 ### Eval
-Evaluates given ruby expression. Example: rb 5.times { |i| print i*2
+Evaluates given ruby expression.
 
 Usage: ```rb [expr]```
 

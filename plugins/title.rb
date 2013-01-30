@@ -4,7 +4,7 @@ require_relative '../utils/webpage'
 class Title
   include Cinch::Plugin
 
-  set :help, 't [url] - prints the title of a page specified in parametr. Example: t http://www.seznam.cz/'
+  set :help, 't [url] - prints the title of a page specified in parameter. Example: t http://www.seznam.cz/'
 
   match /t +(http.+)/
 
