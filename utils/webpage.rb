@@ -23,6 +23,12 @@ class WebPage
     JSON.parse(str, {:symbolize_names => true})
   end
 
+  def self.load_and_read_json(url, &block)
+    str = self.load(url).read
+    str = yield str if block_given?
+    JSON.parse(str, {:symbolize_names => true})
+  end
+
   private
   def self.load(url)
     f = open(url,
