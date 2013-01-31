@@ -9,7 +9,7 @@ class Wiki
 
   set :help, 'wik(i)(-[lang]) [query] - returns the first result via MediaWiki. Example: wik-en dozorce'
 
-  match /wik[?:i]?(?:-(.{2}))? (.+)/
+  match /wiki?(?:-(.{2}))? (.+)/
 
   def execute(m, lang, query)
     m.reply( search(lang, query), true)
