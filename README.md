@@ -71,5 +71,13 @@ Usage: ```[source-lang] [to-lang] "[query]"?``` or ```[source-lang] to [to-lang]
 Example: ```en cs "dog"?``` or ```"dog"?``` or ```en to cz dog```
 
 
+### Twitter
+Prints the user status. Plugin also works automatically for detected Twitter URLs.
+
+Usage: ```tw [status]```
+
+Example: ```tw 297374318562779137```
+
+
 ### YouTube
 YouTube plugin automatically prints video titles from detected URLs.
