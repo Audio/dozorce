@@ -17,6 +17,6 @@ class Calculator
   def calc(query)
     url = "http://www.google.com/ig/calculator?hl=cs&q=#{CGI.escape(query)}"
     json = WebPage.load_json(url) { |str| str.gsub(/(\w+): /, '"\1":') }
-    json[:error].length > 1 ? "No result" : "#{json[:lhs]} = #{json[:rhs]}"
+    json[:error].length > 1 ? "No result" : json[:rhs]
   end
 end
