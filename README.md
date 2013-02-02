@@ -25,6 +25,14 @@ Usage: ```c [formula]``` or ```[number] [unit1] to [unit2]```
 Example: ```c (5 + 6) / 2``` or ```18 stones to kg```
 
 
+### Csfd
+Returns info about queried movie.
+
+Usage: ```csfd [query]```
+
+Example: ```csfd star wars xxx a porn parody```
+
+
 ### Die
 The bot will immediately disconnect and stop running.
 
@@ -77,6 +85,14 @@ Prints the user status. Plugin also works automatically for detected Twitter URL
 Usage: ```tw [status]```
 
 Example: ```tw 297374318562779137```
+
+
+### Wiki
+Returns the first result via MediaWiki.
+
+Usage: ```wik(i)(-[lang]) [query]```
+
+Example: ```wik-en hamster```
 
 
 ### YouTube

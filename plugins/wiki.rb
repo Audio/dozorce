@@ -7,7 +7,7 @@ class Wiki
 
   @@def_lang = "en"
 
-  set :help, 'wik(i)(-[lang]) [query] - returns the first result via MediaWiki. Example: wik-en dozorce'
+  set :help, 'wik(i)(-[lang]) [query] - returns the first result via MediaWiki. Example: wik-en hamster'
 
   match /wiki?(?:-(.{2}))? (.+)/
 
