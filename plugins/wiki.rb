@@ -5,20 +5,21 @@ require_relative '../utils/webpage'
 class Wiki
   include Cinch::Plugin
 
-  @@def_lang = "en"
-
   set :help, 'wik(i)(-[lang]) [query] - returns the first result via MediaWiki. Example: wik-en hamster'
 
   match /wiki?(?:-(.{2}))? (.+)/
+
+  def initialize(*args)
+    super
+    @def_lang = "en"
+  end
 
   def execute(m, lang, query)
     m.reply( search(lang, query), true)
   end
 
   def search(lang, query)
-    if lang.nil?
-      lang = @@def_lang
-    end
+    lang = @def_lang if lang.nil?
 
     result = result(lang, query)
     if result.nil?
@@ -28,16 +29,12 @@ class Wiki
       result = result(lang, search_result)
     end
 
-    if result.nil?
-      raise Exception
-    end
+    raise Exception if result.nil?
 
     result_content = result[:revisions][0][:*]
     result_line = result_content[/\n('{3}(\[{2})?)?[A-Z].[^\.:]*:?/]
     last_char = result_line[-1,1]
-    if last_char == ":"
-      result_line = result_content[/\* .+/]
-    end
+    result_line = result_content[/\* .+/] if last_char == ":"
 
     result_line.gsub!(/(\[.*\|)|[\[\]']|(\* )/, "")
     "#{result_line.strip} - http://#{lang}.wikipedia.org/wiki/#{result[:title]}"
@@ -50,10 +47,6 @@ class Wiki
     json_exact = WebPage.load_and_read_json(url)
     results = json_exact[:query][:pages]
     pageid = results.keys[0]
-    if pageid == :"-1"
-      nil
-    else
-      results[pageid]
-    end
+    pageid == :"-1" ? nil : results[pageid]
   end
 end

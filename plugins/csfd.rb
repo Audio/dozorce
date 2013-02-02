@@ -14,13 +14,10 @@ class Csfd
   end
 
   def search(query)
-    print query
     search_url = "http://csfd.matousskala.cz/api/hledat.php?q=#{CGI.escape(query)}"
     search_result = WebPage.load_xml(search_url)
     search_ids = search_result.xpath("//film//id").first
-    if search_ids.nil?
-      raise "No result found"
-    end
+    raise "No result" if search_ids.nil?
 
     movie_id = search_ids.content
     movie_url = "http://csfd.matousskala.cz/api/film.php?id=#{movie_id}"
