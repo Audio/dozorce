@@ -8,85 +8,160 @@ See installation steps and usage instructions on the [cinch project page](https:
 
 
 ## Plugins
-[suppose that the global plugin prefix is off]
+[suppose the global plugin prefix is not set]
 
 
 ### Bash
 Prints a random quote from bash.org database.
 
-Usage: ```bash```
+Usage:
+```
+bash
+```
 
 
 ### Calculator
 Calculates given formula.
 
-Usage: ```c [formula]``` or ```[number] [unit1] to [unit2]```
+Usages:
+```
+c [formula]
+```
+```
+[number] [unit1] to [unit2]
+```
 
-Example: ```c (5 + 6) / 2``` or ```18 stones to kg```
+Examples:
+```
+c (5 + 6) / 2
+```
+```
+18 stones to kg
+```
 
 
 ### Csfd
 Returns info about queried movie.
 
-Usage: ```csfd [query]```
+Usage:
+```
+csfd [query]
+```
 
-Example: ```csfd star wars xxx a porn parody```
+Example:
+```
+csfd star wars xxx a porn parody
+```
 
 
 ### Eval
 Evaluates given ruby expression.
 
-Usage: ```rb [expr]```
+Usage:
+```
+rb [expr]
+```
 
-Example: ```rb 5.times { |i| print i*2 }```
+Example:
+```
+rb 5.times { |i| print i*2 }
+```
 
 
 ### Google
 Returns the first result via Google Search.
 
-Usage: ```go(ogle) [query]```
+Usage:
+```
+go(ogle) [query]
+```
 
-Examples: ```go cinema in Prague``` or ```google iPad8 review```
+Examples:
+```
+go cinema in Prague
+```
+```
+google iPad8 review
+```
 
 
 ### Help
 Prints information about a command (or all commands with no name specified).
 
-Usage: ```help [name]```
+Usage:
+```
+help [name]
+```
 
-Example: ```help``` or ```help calculator```
+Examples:
+```
+help
+```
+```
+help calculator
+```
 
 
 ### Title
 Prints the title of a page specified in parameter.
 
-Usage: ```t [url]```
+Usage:
+```
+t [url]
+```
 
-Example: ```t http://www.seznam.cz/```
+Example:
+```
+t http://www.seznam.cz/
+```
 
 
 ### Translator
 Translates the query string. Lang parameters are optional for the first pattern.
 
-Usage: ```tr [source-lang]-[to-lang] [query]``` or ```tr [query]```
+Usages:
+```
+tr [source-lang]-[to-lang] [query]
+```
+```
+tr [query]
+```
 
-Example: ```tr en-cs dog``` or ```tr dog```
+Examples:
+```
+tr en-cs dog
+```
+```
+tr dog
+```
 
 
 ### Twitter
 Prints the user status. Plugin also works automatically for detected Twitter URLs.
 
-Usage: ```tw [status]```
+Usage:
+```
+tw [status]
+```
 
-Example: ```tw 297374318562779137```
+Example:
+```
+tw 297374318562779137
+```
 
 
 ### Wiki
 Returns the first result via MediaWiki.
 
-Usage: ```wik(i)(-[lang]) [query]```
+Usage:
+```
+wik(i)(-[lang]) [query]
+```
 
-Example: ```wik-en hamster```
+Example:
+```
+wik-en hamster
+```
 
 
 ### YouTube
