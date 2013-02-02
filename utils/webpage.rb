@@ -6,7 +6,7 @@ require 'open-uri'
 
 class WebPage
   def self.load_plain(url)
-    self.load(url).string
+    self.load(url).read
   end
 
   def self.load_html(url)
@@ -18,12 +18,6 @@ class WebPage
   end
 
   def self.load_json(url, &block)
-    str = self.load(url).string
-    str = yield str if block_given?
-    JSON.parse(str, {:symbolize_names => true})
-  end
-
-  def self.load_and_read_json(url, &block)
     str = self.load(url).read
     str = yield str if block_given?
     JSON.parse(str, {:symbolize_names => true})
