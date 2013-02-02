@@ -68,9 +68,9 @@ Example: ```t http://www.seznam.cz/```
 ### Translator
 Translates the query string. Lang parameters are optional for the first pattern.
 
-Usage: ```[source-lang] [to-lang] "[query]"?``` or ```[source-lang] to [to-lang] [query]```
+Usage: ```tr [source-lang]-[to-lang] [query]``` or ```tr [query]```
 
-Example: ```en cs "dog"?``` or ```"dog"?``` or ```en to cz dog```
+Example: ```tr en-cs dog``` or ```tr dog```
 
 
 ### Twitter
