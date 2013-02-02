@@ -33,12 +33,6 @@ Usage: ```csfd [query]```
 Example: ```csfd star wars xxx a porn parody```
 
 
-### Die
-The bot will immediately disconnect and stop running.
-
-Usage: ```die```
-
-
 ### Eval
 Evaluates given ruby expression.
 

@@ -12,7 +12,6 @@ bot = Cinch::Bot.new do
         Bash,
         Calculator,
         Csfd,
-        Die,
         Eval,
         Google,
         Help,
