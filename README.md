@@ -102,6 +102,26 @@ help calculator
 ```
 
 
+### RSS
+Prints the list of monitored feeds. Plugin prints new messages automatically in a short interval.
+Feeds list can be set via plugin's config.
+
+Usage:
+```
+rss list
+```
+
+Config:
+```
+Rss.configure do |c|
+  c.feeds = {
+      :bashoid => 'https://github.com/Audio/bashoid/commits/master.atom',
+      :dozorce => 'https://github.com/Audio/dozorce/commits/master.atom'
+  }
+end
+```
+
+
 ### Title
 Prints the title of a page specified in parameter.
 

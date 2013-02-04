@@ -23,7 +23,6 @@ class WebPage
     JSON.parse(str, {:symbolize_names => true})
   end
 
-  private
   def self.load(url)
     f = open(url,
              :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
