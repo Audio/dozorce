@@ -54,20 +54,6 @@ csfd star wars xxx a porn parody
 ```
 
 
-### Eval
-Evaluates given ruby expression.
-
-Usage:
-```
-rb [expr]
-```
-
-Example:
-```
-rb 5.times { |i| print i*2 }
-```
-
-
 ### Google
 Returns the first result via Google Search.
 
