@@ -1,94 +1,34 @@
 #
 # (c) https://github.com/cardmagic/simple-rss
-# This version including fix:
-#   https://github.com/cardmagic/simple-rss/commit/ef0d5db568faa75073a43f45d5f544d4414a8ea3#commitcomment-515213
+# inludes custom speed modifications (loads titles and links only)
 #
-
 require 'cgi'
 require 'time'
 
 class SimpleRSS
-  VERSION = "1.2.3"
-
-  attr_reader :items, :source
-  alias :entries :items
-
-  @@feed_tags = [
-      :id,
-      :title, :subtitle, :link,
-      :description,
-      :author, :webMaster, :managingEditor, :contributor,
-      :pubDate, :lastBuildDate, :updated, :'dc:date',
-      :generator, :language, :docs, :cloud,
-      :ttl, :skipHours, :skipDays,
-      :image, :logo, :icon, :rating,
-      :rights, :copyright,
-      :textInput, :'feedburner:browserFriendly',
-      :'itunes:author', :'itunes:category'
-  ]
-
-  @@item_tags = [
-      :id,
-      :title, :link, :'link+alternate', :'link+self', :'link+edit', :'link+replies',
-      :author, :contributor,
-      :description, :summary, :content, :'content:encoded', :comments,
-      :pubDate, :published, :updated, :expirationDate, :modified, :'dc:date',
-      :category, :guid,
-      :'trackback:ping', :'trackback:about',
-      :'dc:creator', :'dc:title', :'dc:subject', :'dc:rights', :'dc:publisher',
-      :'feedburner:origLink',
-      :'media:content#url', :'media:content#type', :'media:content#height', :'media:content#width',
-      :'media:title', :'media:thumbnail#url', :'media:thumbnail#height', :'media:thumbnail#width',
-      :'media:credit', :'media:credit#role',
-      :'media:category', :'media:category#scheme'
-  ]
+  attr_reader :items
 
   def initialize(source, options={})
     @source = source.respond_to?(:read) ? source.read : source.to_s
     @items = Array.new
     @options = Hash.new.update(options)
+    @tags = [ :title, :link ]
 
     parse
   end
 
-  def channel()
-    self
-  end
-
-  alias :feed :channel
-
-  class << self
-    def feed_tags
-      @@feed_tags
-    end
-
-    def feed_tags=(ft)
-      @@feed_tags = ft
-    end
-
-    def item_tags
-      @@item_tags
-    end
-
-    def item_tags=(it)
-      @@item_tags = it
-    end
-
-    # The strict attribute is for compatibility with Ruby's standard RSS parser
-    def parse(source, options={})
-      new source, options
-    end
+  def self.parse(source, options={})
+    new(source, options)
   end
 
   private
-
   def parse
     raise SimpleRSSError, "Poorly formatted feed" unless @source =~ %r{<(channel|feed).*?>.*?</(channel|feed)>}mi
 
     # Feed's title and link
     feed_content = $1 if @source =~ %r{(.*?)<(rss:|atom:)?(item|entry).*?>.*?</(rss:|atom:)?(item|entry)>}mi
 
-    @@feed_tags.each do |tag|
+    @tags.each do |tag|
       if feed_content && feed_content =~ %r{<(rss:|atom:)?#{tag}(.*?)>(.*?)</(rss:|atom:)?#{tag}>}mi
         nil
       elsif feed_content && feed_content =~ %r{<(rss:|atom:)?#{tag}(.*?)\/\s*>}mi
@@ -109,7 +49,7 @@ class SimpleRSS
     # RSS items' title, link, and description
     @source.scan(%r{<(rss:|atom:)?(item|entry)([\s][^>]*)?>(.*?)</(rss:|atom:)?(item|entry)>}mi) do |match|
       item = Hash.new
-      @@item_tags.each do |tag|
+      @tags.each do |tag|
         if tag.to_s.include?("+")
           tag_data = tag.to_s.split("+")
           tag = tag_data[0]
@@ -152,14 +92,7 @@ class SimpleRSS
 
   def clean_content(tag, attrs, content)
     content = content.to_s
-    case tag
-      when :pubDate, :lastBuildDate, :published, :updated, :expirationDate, :modified, :'dc:date'
-        Time.parse(content) rescue unescape(content)
-      when :author, :contributor, :skipHours, :skipDays
-        unescape(content.gsub(/<.*?>/, ''))
-      else
-        content.empty? && "#{attrs} " =~ /href=['"]?([^'"]*)['" ]/mi ? $1.strip : unescape(content)
-    end
+    content.empty? && "#{attrs} " =~ /href=['"]?([^'"]*)['" ]/mi ? $1.strip : unescape(content)
   end
 
   def clean_tag(tag)

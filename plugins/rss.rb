@@ -29,23 +29,21 @@ class Rss
   end
 
   def init_feeds(m)
-    @feeds.each { |feed, url|
-      rss = SimpleRSS.parse WebPage.load(url)
-      @last_titles[feed] = rss.items.first.title
-    }
+    docs = download_pages
+    docs.each { |feed, doc| @last_titles[feed] = doc.items.first.title }
     @init_done = true
   end
 
   def update_feeds
     return unless @init_done
-    @feeds.each { |feed, url|
+    docs = download_pages
+    docs.each { |feed, doc|
       new_items = []
-      rss = SimpleRSS.parse WebPage.load(url)
-      rss.items.each { |item|
+      doc.items.each { |item|
         break if item.title == @last_titles[feed]
         new_items << CGI.unescapeHTML(item.title)
       }
-      @last_titles[feed] = rss.items.first.title
+      @last_titles[feed] = doc.items.first.title
 
       unless new_items.empty?
         message = new_items.reverse.join(' | ')
@@ -53,6 +51,18 @@ class Rss
         @bot.channels.each { |channel| channel.send message }
       end
     }
+  end
+
+  def download_pages
+    docs = {}
+    threads = []
+    @feeds.each { |feed, url|
+      threads << Thread.new {
+        docs[feed] = SimpleRSS.parse( WebPage.load url )
+      }
+    }
+    threads.each { |thread| thread.join }
+    docs
   end
 
   def execute(m)
