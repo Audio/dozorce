@@ -1,5 +1,4 @@
 require 'cgi'
-require_relative '../utils/simple-rss'
 require_relative '../utils/webpage'
 
 
@@ -29,21 +28,21 @@ class Rss
   end
 
   def init_feeds(m)
-    docs = download_pages
-    docs.each { |feed, doc| @last_titles[feed] = doc.items.first.title }
+    doc_items = download_parse
+    doc_items.each { |feed, items| @last_titles[feed] = title(items)  }
     @init_done = true
   end
 
   def update_feeds
     return unless @init_done
-    docs = download_pages
-    docs.each { |feed, doc|
+    doc_items = download_parse
+    doc_items.each { |feed, items|
       new_items = []
-      doc.items.each { |item|
-        break if item.title == @last_titles[feed]
-        new_items << CGI.unescapeHTML(item.title)
+      items.each { |item|
+        break if title(item) == @last_titles[feed]
+        new_items << CGI.unescapeHTML( title(item) )
       }
-      @last_titles[feed] = doc.items.first.title
+      @last_titles[feed] = title(items)
 
       unless new_items.empty?
         message = new_items.reverse.join(' | ')
@@ -53,16 +52,27 @@ class Rss
     }
   end
 
-  def download_pages
-    docs = {}
+  def download_parse
+    doc_items = {}
     threads = []
     @feeds.each { |feed, url|
       threads << Thread.new {
-        docs[feed] = SimpleRSS.parse( WebPage.load url )
+        doc = WebPage.load_xml(url)
+        is_rss = doc.xpath('/rss').size > 0
+        doc.remove_namespaces! unless is_rss
+
+        items_path = is_rss ? '/rss/channel/item' : '/feed/entry'
+        items = doc.xpath(items_path)
+
+        doc_items[feed] = items
       }
     }
     threads.each { |thread| thread.join }
-    docs
+    doc_items
+  end
+
+  def title(item)
+    item.at('title').text.strip
   end
 
   def execute(m)
