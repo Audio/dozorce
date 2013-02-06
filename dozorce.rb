@@ -4,16 +4,15 @@ Dir["./plugins/*.rb"].each { |file| require_relative file }
 
 bot = Cinch::Bot.new do
   configure do |c|
-    c.nick = 'Sadomaso'
+    c.nick = 'DoziARM'
     c.user = 'dozorce'
     c.server = "irc.rizon.net"
-    c.channels = ['#abraka']
+    c.channels = ['#soulwell']
     c.encoding = 'UTF-8'
     c.plugins.plugins = [
         Bash,
         Calculator,
         Csfd,
-        Eval,
         Google,
         Help,
         Rss,
