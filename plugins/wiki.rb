@@ -43,7 +43,7 @@ class Wiki
   end
 
   def first_sentense_of(string)
-    string = remove_references string
+    remove_references!(string)
     sentenses = string.split '. '
     result = "#{sentenses.shift}. "
     while sentenses.size > 0
@@ -55,7 +55,7 @@ class Wiki
     result
   end
 
-  def remove_references(string)
-    string.gsub(/\[[\d]{1,2}\]/, '')
+  def remove_references!(string)
+    string.gsub!(/\[[\d]{1,2}\]/, '')
   end
 end
