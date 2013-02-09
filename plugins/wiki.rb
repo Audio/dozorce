@@ -20,24 +20,26 @@ class Wiki
 
   def search(lang, query)
     lang = @def_lang if lang.nil?
+    escaped_query = escape query
 
-    result = result(lang, query)
-    if result.nil?
-      search_url = "http://#{lang}.wikipedia.org/w/api.php?action=opensearch&search=#{CGI.escape(query)}&limit=1&namespace=0&format=json"
-      json_search = WebPage.load_json(search_url)
-      search_result = json_search[1][0]
-      result = result(lang, search_result)
+    search_url = "http://#{lang}.wikipedia.org/w/api.php?action=opensearch&search=#{escaped_query}&limit=1&namespace=0&format=json"
+    query = WebPage.load_json(search_url)[1][0]
+
+    if query.nil?
+      "No result"
+    else
+      escaped_query = escape query
+      result = result(lang, escaped_query)
+      "#{first_sentense_of result} - http://#{lang}.wikipedia.org/wiki/#{escaped_query}"
     end
-
-    raise Exception if result.nil?
-
-    "#{first_sentense_of result} - http://#{lang}.wikipedia.org/wiki/#{query}"
-  rescue Exception
-    "No result"
   end
 
-  def result(lang, query)
-    url = "http://#{lang}.wikipedia.org/wiki/#{CGI.escape(query)}"
+  def escape(query)
+    CGI.escape query.gsub(' ', '_')
+  end
+
+  def result(lang, escaped_query)
+    url = "http://#{lang}.wikipedia.org/wiki/#{escaped_query}"
     doc = WebPage.load_html(url)
     doc.xpath("//div[@id='bodyContent']/div/p[1]").text
   end
