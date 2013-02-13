@@ -57,14 +57,18 @@ class Rss
     threads = []
     @feeds.each { |feed, url|
       threads << Thread.new {
-        doc = WebPage.load_xml(url)
-        is_rss = doc.xpath('/rss').size > 0
-        doc.remove_namespaces! unless is_rss
+        begin
+          doc = WebPage.load_xml(url)
+          is_rss = doc.xpath('/rss').size > 0
+          doc.remove_namespaces! unless is_rss
 
-        items_path = is_rss ? '/rss/channel/item' : '/feed/entry'
-        items = doc.xpath(items_path)
+          items_path = is_rss ? '/rss/channel/item' : '/feed/entry'
+          items = doc.xpath(items_path)
 
-        doc_items[feed] = items
+          doc_items[feed] = items
+        rescue Exception => e
+          $stderr.puts "Fetching RSS " + url + " failed, error: " + e.message
+        end
       }
     }
     threads.each { |thread| thread.join }
