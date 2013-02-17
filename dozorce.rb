@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'cinch'
 Dir["./plugins/*.rb"].each { |file| require_relative file }
 
@@ -23,6 +24,18 @@ bot = Cinch::Bot.new do
         Youtube]
     c.plugins.prefix = ''
   end
+end
+
+Calculator.configure do |c|
+  c.currency_shortcut = {
+      :to   => 'czk',
+      :from => %w(usd eur euro euros),
+      :symbols => {
+          :usd   => '$',
+          :eur   => '€',
+          :pound => '£'
+      }
+  }
 end
 
 Rss.configure do |c|

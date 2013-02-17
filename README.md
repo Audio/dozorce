@@ -30,6 +30,12 @@ c [formula]
 ```
 [number] [unit1] to [unit2]
 ```
+```
+[number] [predefined-currency]
+```
+```
+[number] [predefined-symbol]
+```
 
 Examples:
 ```
@@ -37,6 +43,26 @@ c (5 + 6) / 2
 ```
 ```
 18 stones to kg
+```
+```
+18 usd
+17 €
+$11
+```
+
+Config:
+```
+Calculator.configure do |c|
+  c.currency_shortcut = {
+      :to   => 'czk',
+      :from => %w(usd eur euro euros),
+      :symbols => {
+          :usd   => '$',
+          :eur   => '€',
+          :pound => '£'
+      }
+  }
+end
 ```
 
 
