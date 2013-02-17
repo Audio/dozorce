@@ -59,15 +59,12 @@ Returns the first result via Google Search.
 
 Usage:
 ```
-go(ogle) [query]
+go [query]
 ```
 
 Examples:
 ```
 go cinema in Prague
-```
-```
-google iPad8 review
 ```
 
 
