@@ -16,6 +16,7 @@ bot = Cinch::Bot.new do
         Csfd,
         Google,
         Help,
+        Rejoin,
         Rss,
         Title,
         Translator,

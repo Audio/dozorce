@@ -111,6 +111,10 @@ help calculator
 ```
 
 
+### Rejoin
+If the bot is kicked, it will attempt to rejoin after 10 seconds by default.
+
+
 ### RSS
 Prints the list of monitored feeds. Plugin prints new messages automatically in a short interval.
 Feeds list can be set via plugin's config.
