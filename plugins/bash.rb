@@ -6,7 +6,7 @@ class Bash
 
   set :help, 'bash - prints a random quote from bash.org database'
 
-  match /^bash$/, use_prefix: false
+  match /bash$/
 
   def execute(m)
     quote = take_one( download_parse )

@@ -2,15 +2,15 @@
 
 Dozorce is a collection of plugins for the [Cinch](https://github.com/cinchrb/cinch) IRC bot written in Ruby.
 
+[![Build Status](https://travis-ci.org/Audio/dozorce.png?branch=master)](https://travis-ci.org/Audio/dozorce)
+
 
 ## Usage
 See installation steps and usage instructions on the [cinch project page](https://github.com/cinchrb/cinch/blob/master/README.md).
 
-[![Build Status](https://travis-ci.org/Audio/dozorce.png?branch=master)](https://travis-ci.org/Audio/dozorce)
-
 
 ## Plugins
-[suppose the global plugin prefix is not set]
+In the following examples, the plugin prefix is set by default to ```!```
 
 
 ### Bash
@@ -18,7 +18,7 @@ Prints a random quote from bash.org database.
 
 Usage:
 ```
-bash
+!bash
 ```
 
 
@@ -27,7 +27,7 @@ Calculates given formula.
 
 Usages:
 ```
-c [formula]
+!c [formula]
 ```
 ```
 [number] [unit1] to [unit2]
@@ -41,7 +41,7 @@ c [formula]
 
 Examples:
 ```
-c (5 + 6) / 2
+!c (5 + 6) / 2
 ```
 ```
 18 stones to kg
@@ -73,12 +73,12 @@ Returns info about queried movie.
 
 Usage:
 ```
-csfd [query]
+!csfd [query]
 ```
 
 Example:
 ```
-csfd star wars xxx a porn parody
+!csfd star wars xxx a porn parody
 ```
 
 
@@ -87,12 +87,12 @@ Returns the first result via Google Search.
 
 Usage:
 ```
-go [query]
+!go [query]
 ```
 
 Examples:
 ```
-go cinema in Prague
+!go cinema in Prague
 ```
 
 
@@ -101,15 +101,15 @@ Prints information about a command (or all commands with no name specified).
 
 Usage:
 ```
-help [name]
+!help [name]
 ```
 
 Examples:
 ```
-help
+!help
 ```
 ```
-help calculator
+!help calculator
 ```
 
 
@@ -123,7 +123,7 @@ Feeds list can be set via plugin's config.
 
 Usage:
 ```
-rss list
+!rss list
 ```
 
 Config:
@@ -142,12 +142,12 @@ Prints the title of a page specified in parameter.
 
 Usage:
 ```
-t [url]
+!t [url]
 ```
 
 Example:
 ```
-t http://www.seznam.cz/
+!t http://www.seznam.cz/
 ```
 
 
@@ -156,18 +156,18 @@ Translates the query string. Lang parameters are optional for the first pattern.
 
 Usages:
 ```
-tr [source-lang]-[to-lang] [query]
+!tr [source-lang]-[to-lang] [query]
 ```
 ```
-tr [query]
+!tr [query]
 ```
 
 Examples:
 ```
-tr en-cs dog
+!tr en-cs dog
 ```
 ```
-tr dog
+!tr dog
 ```
 
 
@@ -176,12 +176,12 @@ Prints the user status. Plugin also works automatically for detected Twitter URL
 
 Usage:
 ```
-tw [status]
+!tw [status]
 ```
 
 Example:
 ```
-tw 297374318562779137
+!tw 297374318562779137
 ```
 
 
@@ -190,12 +190,12 @@ Returns the first result via MediaWiki.
 
 Usage:
 ```
-wik(i)(-[lang]) [query]
+!wik(i)(-[lang]) [query]
 ```
 
 Example:
 ```
-wik-en hamster
+!wik-en hamster
 ```
 
 
