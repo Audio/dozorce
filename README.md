@@ -6,6 +6,8 @@ Dozorce is a collection of plugins for the [Cinch](https://github.com/cinchrb/ci
 ## Usage
 See installation steps and usage instructions on the [cinch project page](https://github.com/cinchrb/cinch/blob/master/README.md).
 
+[![Build Status](https://travis-ci.org/Audio/dozorce.png?branch=master)](https://travis-ci.org/Audio/dozorce)
+
 
 ## Plugins
 [suppose the global plugin prefix is not set]
