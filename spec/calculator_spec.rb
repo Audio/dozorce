@@ -9,37 +9,29 @@ describe Calculator do
     initialize_plugin(Calculator)
   end
 
-  it "should respond to prefixed and unprefixed messages" do
-    @plugin.class.matchers.size.should be 2
-  end
-
-  it "should respond to prefixed messages" do
-    should_respond(
-      @plugin.class.matchers.first,
-      [ 'c 15 usd to czk',
-        'c 17.2 usd to czk',
-        'c 9 + 9']
+  it "should reply to prefixed messages" do
+    should_reply(
+      [ '!c 15 usd to czk',
+        '!c 17.2 usd to czk',
+        '!c 9 + 9']
     )
   end
 
-  it "should respond to possibly invalid prefixed messages" do
-    should_respond(
-      @plugin.class.matchers.first,
-      [ 'c 17.a usd to czk' ]
+  it "should reply to possibly invalid prefixed messages" do
+    should_reply(
+      [ '!c 17.a usd to czk' ]
     )
   end
 
-  it "should respond to unprefixed messages" do
-    should_respond(
-      @plugin.class.matchers.last,
+  it "should reply to unprefixed messages" do
+    should_reply(
       [ '192 pounds to kg',
         '18 stones to grams' ]
     )
   end
 
-  it "should not respond to unprefixed messages" do
-    should_not_respond(
-      @plugin.class.matchers.last,
+  it "should not reply to unprefixed messages" do
+    should_not_reply(
       [ 'zdarec!',
         '17.a usd to czk' ]
     )
