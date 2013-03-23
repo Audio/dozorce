@@ -17,25 +17,18 @@ module SpecHelper
     double
   end
 
-  def should_reply(plain_messages)
-    test_replies(:once, plain_messages)
-  end
-
-  def should_not_reply(plain_messages)
-    test_replies(0, plain_messages)
-  end
-
-  private
-  def test_replies(count, plain_messages)
+  def should_reply(text, reply)
     event = :message
-    plain_messages.each { |message|
-      msg = message(message)
-      msg.should_receive(:reply).exactly(count).times
-      handlers = @bot.handlers.find(event, msg)
-      handlers.each do |handler|
-        captures = msg.match(handler.pattern.to_r(msg), event).captures
-        handler.block.call(msg, *handler.args, *captures)
-      end
-    }
+    message = message(text)
+    message.should_receive(:reply).with(reply)
+    handlers = @bot.handlers.find(event, message)
+    handlers.each do |handler|
+      captures = message.match(handler.pattern.to_r(message), event).captures
+      handler.block.call(message, *handler.args, *captures)
+    end
+  end
+
+  def should_not_reply(text)
+    @bot.handlers.find(:message, message(text)).size.should be 0
   end
 end
