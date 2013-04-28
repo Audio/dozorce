@@ -17,7 +17,7 @@ class Bash
   def download_parse
     page = WebPage.load_html('http://bash.org/?random1')
     quotes = BashParser.get_quotes(page)
-    quotes.sort!
+    quotes.sort!.reverse!
     quotes = quotes[0..9]
     quotes.shuffle!
   end
