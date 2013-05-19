@@ -53,7 +53,7 @@ class BashParser
     bodies = page.xpath("//p[@class='qt']")
 
     headers.size.times { |i|
-      body = bodies[i].text.split('<br />')
+      body = bodies[i].text.split(/\r?\n/)
       header = headers[i]
 
       id = header.text.strip[1..-1].to_i
