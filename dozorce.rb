@@ -46,14 +46,11 @@ Rss.configure do |c|
       :Lorris          => 'https://github.com/Tasssadar/Lorris/commits/master.atom',
       :"Lorris mobile" => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
       :soulcore        => 'http://soulwell.czechdream.cz/rss_git.php?parameters=p%3Dsoulcore.git%3Ba%3Datom',
-      :Steam           => 'http://api.twitter.com/1/statuses/user_timeline.rss?screen_name=steam_games',
+      :Steam           => 'http://www.twitter-rss.com/user_timeline.php?screen_name=steam_games',
       :TrinityCore     => 'https://github.com/TrinityCore/TrinityCore/commits/master.atom',
       :Wine            => 'http://www.winehq.org/news/rss/',
       :fIRC            => 'https://github.com/Frca/fIRC/commits/master.atom',
-      :DotaTimer_cli   => 'https://github.com/Frca/DotaTimer-client-android/commits/master.atom',
-      :DotaTimer_backend          => 'https://github.com/Frca/DotaTimer-backend-api/commits/master.atom',
-      :GamingScheduler_AppEngine  => 'https://github.com/Frca/GamingScheduler-AppEngine/commits/master.atom',
-      :GamingScheduler_clint      => 'https://github.com/Frca/GamingScheduler-cli/commits/master.atom',
+      :GamingScheduler => 'https://github.com/Frca/GamingScheduler/commits/master.atom'
       
   }
 end
