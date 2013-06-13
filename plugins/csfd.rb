@@ -30,7 +30,12 @@ class Csfd
     movie_length = parsed_made_data[3]
     movie_rating = movie_result.xpath("/film/rating").text
     movie_link = "http://www.csfd.cz/film/#{movie_id}"
-    "#{movie_title} (#{movie_year}), #{movie_country}, #{movie_length}, #{movie_rating}% - #{movie_link}"
+    result = "#{movie_title} (#{movie_year}), #{movie_country}, #{movie_length}"
+    unless movie_rating.empty?
+      result += ", #{movie_rating}%"
+    end
+    result += " - #{movie_link}"
+    result
   rescue
     "No result"
   end
