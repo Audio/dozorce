@@ -24,7 +24,7 @@ class Csfd
 
     movie_title = movie_result.xpath("/film/nazev").text
     made_data = movie_result.xpath("/film/zeme").text
-    parsed_made_data = made_data.match(/^(.[^,]*), ([0-9]{4}), (?:.[^0-9])*([0-9]{1,3} min)/)
+    parsed_made_data = made_data.match(/^(.[^,]*), ([0-9]{4}), (?:.[^\w])*([\w]* min)/)
     movie_country = parsed_made_data[1]
     movie_year = parsed_made_data[2]
     movie_length = parsed_made_data[3]
