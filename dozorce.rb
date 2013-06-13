@@ -43,15 +43,14 @@ Rss.configure do |c|
   c.feeds = {
       :bashoid         => 'https://github.com/Audio/bashoid/commits/master.atom',
       :dozorce         => 'https://github.com/Audio/dozorce/commits/master.atom',
+      :fIRC            => 'https://github.com/Frca/fIRC/commits/master.atom',
+      :GamingScheduler => 'https://github.com/Frca/GamingScheduler/commits/master.atom',
       :Lorris          => 'https://github.com/Tasssadar/Lorris/commits/master.atom',
       :"Lorris mobile" => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
       :soulcore        => 'http://soulwell.czechdream.cz/rss_git.php?parameters=p%3Dsoulcore.git%3Ba%3Datom',
       :Steam           => 'http://www.twitter-rss.com/user_timeline.php?screen_name=steam_games',
       :TrinityCore     => 'https://github.com/TrinityCore/TrinityCore/commits/master.atom',
-      :Wine            => 'http://www.winehq.org/news/rss/',
-      :fIRC            => 'https://github.com/Frca/fIRC/commits/master.atom',
-      :GamingScheduler => 'https://github.com/Frca/GamingScheduler/commits/master.atom'
-      
+      :Wine            => 'http://www.winehq.org/news/rss/'
   }
 end
 
