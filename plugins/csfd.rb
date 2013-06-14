@@ -1,4 +1,5 @@
 require 'cgi'
+require 'nokogiri'
 require_relative '../utils/webpage'
 
 
@@ -22,7 +23,7 @@ class Csfd
     movie_url = "http://csfdapi.cz/movie/#{movie_id}"
     movie_result = WebPage.load_json(movie_url)
 
-    movie_title = movie_result[:names][movie_result[:names].keys.first]
+    movie_title = Nokogiri::HTML(movie_result[:names][movie_result[:names].keys.first]).content
     movie_country = movie_result[:countries].join(' / ')
     movie_year = movie_result[:year]
     movie_length = movie_result[:runtime]
