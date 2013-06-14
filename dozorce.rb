@@ -14,6 +14,7 @@ bot = Cinch::Bot.new do
         Bash,
         Calculator,
         Csfd,
+        Track,
         Google,
         Help,
         Rejoin,
@@ -36,6 +37,17 @@ Calculator.configure do |c|
           :eur   => '€',
           :pound => '£'
       }
+  }
+end
+
+Track.configure do |c|
+  c.users = {
+      :Audio    => 119558,
+      :Frca     => 65159,
+      :Hate     => 256535,
+      :Chaythere=> 122253,
+      :reeshack => 95093,
+      :Tassoid  => 365840,
   }
 end
 
