@@ -22,6 +22,7 @@ bot = Cinch::Bot.new do
         Title,
         Translator,
         Twitter,
+        Weather,
         Wiki,
         Youtube]
     c.plugins.prefix = ''
