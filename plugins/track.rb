@@ -25,18 +25,27 @@ class Track
     @users = self.class.users
     @last_titles = {}
     @init_done = false
+    @@api_accessable = true
   end
 
   def init_ratings(m)
     doc_items = download_parse
-    doc_items.each { |user, items| @last_titles[user] = movie_id(items[0])  }
+    if @@api_accessable
+      doc_items.each { |user, items| @last_titles[user] = movie_id(items[0])  }
+    end
     @init_done = true
   end
 
   def update_ratings
     return unless @init_done
     doc_items = download_parse
+    return if @last_titles.empty? && @@api_accessable == false
     doc_items.each { |user, items|
+      if @last_titles[user].empty?
+        @last_titles[user] = movie_id(items[0])
+        next
+      end
+
       new_items = []
       last_movie_contained = false
       items.each { |item|
@@ -64,6 +73,7 @@ class Track
   def download_parse
     doc_items = {}
     threads = []
+    any_error = false
     @users.each { |user, csfd_id|
       threads << Thread.new {
         begin
@@ -71,10 +81,17 @@ class Track
           doc_items[user] = doc[:ratings]
         rescue Exception => e
           $stderr.puts "Fetching Csfd user `#{user}` failed, error: " + e.message
+          any_error = true
         end
       }
     }
     threads.each { |thread| thread.join }
+    if @@api_accessable == any_error
+      message = any_error ? "Csfd api is not currently accessible" : "Csfd api is accessible again"
+      @bot.channels.each { |channel| channel.send message }
+      @@api_accessable = !any_error
+    end
+
     doc_items
   end
 
@@ -92,5 +109,9 @@ class Track
   end
   def execute(m)
     m.reply "Monitored users: #{@users.keys.join(', ')}"
+  end
+
+  def self.is_api_accessible?
+    @@api_accessable
   end
 end

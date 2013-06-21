@@ -15,6 +15,9 @@ class Csfd
   end
 
   def search(query)
+    unless Track.is_api_accessible?
+      return "Api is currently not accesible"
+    end
     search_url = "http://csfdapi.cz/movie?search=#{CGI.escape(query)}"
     search_result = WebPage.load_json(search_url)
     raise NoMovieFoundError if search_result.length == 0
