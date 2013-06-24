@@ -4,18 +4,20 @@ require_relative '../utils/webpage'
 class Twitter
   include Cinch::Plugin
 
-  set :help, 'tw [status] - prints the status. Plugin also works automatically for Twitter URLs. Example: tw 297374318562779137'
+  set :help, 'Twitter plugin automatically prints tweets from detected URLs.'
 
-  match /twitter.com\/\w*\/status\/(\d+)/, use_prefix: false
-  match /tw(?:itter\.com)? +(\d+)$/
+  match /twitter.com\/(\w*\/status\/\d+)/, use_prefix: false
       
-  def execute(m, status_id)
-    m.reply status(status_id)
+  def execute(m, url_part)
+    m.reply status(url_part)
   end
 
   private
-  def status(status_id)
-    tweet = WebPage.load_json("https://api.twitter.com/1/statuses/show/#{status_id}.json")
-    "@#{tweet[:user][:screen_name]}: #{tweet[:text].gsub("\n", ' ')}"
+  def status(url_part)
+    html = WebPage.load_html("https://twitter.com/#{url_part}")
+    tweet = html.css('.permalink .tweet-text')[0].text
+    tweet.gsub("\n", ' ')
+  rescue OpenURI::HTTPError
+    'Not found'
   end
 end

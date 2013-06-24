@@ -151,6 +151,15 @@ Example:
 ```
 
 
+### Track
+Prints all tracked users. Plugin prints new ratings automatically in a short interval.
+
+Usage:
+```
+!track list
+```
+
+
 ### Translator
 Translates the query string. Lang parameters are optional for the first pattern.
 
@@ -172,17 +181,7 @@ Examples:
 
 
 ### Twitter
-Prints the user status. Plugin also works automatically for detected Twitter URLs.
-
-Usage:
-```
-!tw [status]
-```
-
-Example:
-```
-!tw 297374318562779137
-```
+Twitter plugin automatically prints tweets from detected URLs.
 
 
 ### Wiki
