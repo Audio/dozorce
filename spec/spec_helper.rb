@@ -13,7 +13,7 @@ module SpecHelper
 
   def message(text)
     double = double('Cinch::Message', :message => text)
-    double.should_receive(:match).any_number_of_times do |regex, type| text.match(regex) end
+    double.should_receive(:match).at_least(:once) do |regex, type| text.match(regex) end
     double
   end
 
