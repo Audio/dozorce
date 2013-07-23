@@ -61,7 +61,7 @@ Rss.configure do |c|
       :Lorris          => 'https://github.com/Tasssadar/Lorris/commits/master.atom',
       :"Lorris mobile" => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
       :soulcore        => 'http://soulwell.czechdream.cz/rss_git.php?parameters=p%3Dsoulcore.git%3Ba%3Datom',
-      :Steam           => 'http://www.twitter-rss.com/user_timeline.php?screen_name=steam_games',
+      :Steam           => 'http://www.rssitfor.me/getrss?name=steam_games',
       :TrinityCore     => 'https://github.com/TrinityCore/TrinityCore/commits/master.atom',
       :Wine            => 'http://www.winehq.org/news/rss/'
   }
