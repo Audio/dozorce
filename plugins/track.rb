@@ -38,58 +38,65 @@ class Track
 
   def update_ratings
     return unless @init_done
+    return init_ratings(nil) if @last_titles.empty?
+
     doc_items = download_parse
-    return if @last_titles.empty? && @@api_accessable == false
+    return unless @@api_accessable
+
     doc_items.each { |user, items|
-      if @last_titles[user].empty?
-        @last_titles[user] = movie_id(items[0])
-        next
-      end
-
-      new_items = []
-      last_movie_contained = false
-      items.each { |item|
-        if (movie_id(item) == @last_titles[user])
-          last_movie_contained = true
-          break
-        end
-      }
-      break unless last_movie_contained
-
-      items.each { |item|
-        break if movie_id(item) == @last_titles[user]
-        new_items << "Rated #{item[:rating]}* - #{movie_name(item)} (#{movie_link(item)})"
-      }
+      handle_feed(user,items)
       @last_titles[user] = movie_id(items[0])
+    }
+  end
 
-      unless new_items.empty?
-        message = new_items.reverse.join(' | ')
-        message = "#{user.to_s}: #{message}"
-        @bot.channels.each { |channel| channel.send message }
+  def handle_feed(user, items)
+    return if @last_titles[user].nil?
+
+    new_items = []
+    last_movie_contained = false
+    items.each { |item|
+      if (movie_id(item) == @last_titles[user])
+        last_movie_contained = true
+        break
       end
     }
+    return unless last_movie_contained
+
+    items.each { |item|
+      break if movie_id(item) == @last_titles[user]
+      new_items << "Rated #{item[:rating]}* - #{movie_name(item)} (#{movie_link(item)})"
+    }
+
+    unless new_items.empty?
+      message = new_items.reverse.join(' | ')
+      message = "#{user.to_s}: #{message}"
+      @bot.channels.each { |channel| channel.send message }
+    end
   end
 
   def download_parse
     doc_items = {}
     threads = []
-    any_error = false
+    is_api_running = true
     @users.each { |user, csfd_id|
       threads << Thread.new {
         begin
           doc = WebPage.load_json("http://csfdapi.cz/user/#{csfd_id}")
           doc_items[user] = doc[:ratings]
-        rescue Exception => e
-          $stderr.puts "Fetching Csfd user `#{user}` failed, error: " + e.message
-          any_error = true
+        rescue OpenURI::HTTPError => e
+          if e.message.strip.eql? "500"
+            is_api_running = false
+            threads.each { |thread| thread.exit }
+          else
+            $stderr.puts "Fetching Csfd user `#{user}` failed, error: " + e.message
+          end
         end
       }
     }
     threads.each { |thread| thread.join }
-    if @@api_accessable == any_error
-      message = any_error ? "Csfd api is not currently accessible" : "Csfd api is accessible again"
-      @bot.channels.each { |channel| channel.send message }
-      @@api_accessable = !any_error
+    if @@api_accessable != is_api_running
+      $stderr.puts is_api_running ? "Csfd api is accessible again" : "Csfd api is not currently accessible"
+      @@api_accessable = is_api_running
     end
 
     doc_items
