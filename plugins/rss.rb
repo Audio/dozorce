@@ -38,10 +38,13 @@ class Rss
     doc_items = download_parse
     doc_items.each { |feed, items|
       new_items = []
-      items.each { |item|
-        break if title(item) == @last_titles[feed]
-        new_items << CGI.unescapeHTML( title(item) )
-      }
+      unless @last_titles[feed].empty?
+        items.each { |item|
+          break if title(item) == @last_titles[feed]
+          new_items << CGI.unescapeHTML( title(item) )
+        }
+      end
+
       @last_titles[feed] = title(items)
 
       unless new_items.empty?
