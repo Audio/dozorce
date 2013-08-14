@@ -54,6 +54,7 @@ end
 
 Rss.configure do |c|
   c.feeds = {
+      :adt             => 'https://sites.google.com/a/android.com/tools/recent/posts.xml',
       :bashoid         => 'https://github.com/Audio/bashoid/commits/master.atom',
       :dozorce         => 'https://github.com/Audio/dozorce/commits/master.atom',
       :fIRC            => 'https://github.com/Frca/fIRC/commits/master.atom',
