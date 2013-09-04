@@ -55,13 +55,13 @@ end
 Rss.configure do |c|
   c.feeds = {
       :adt             => 'https://sites.google.com/a/android.com/tools/recent/posts.xml',
+      :AndroidDeals    => 'http://www.androidpolice.com/topics/deals-2/feed/',
       :bashoid         => 'https://github.com/Audio/bashoid/commits/master.atom',
       :dozorce         => 'https://github.com/Audio/dozorce/commits/master.atom',
       :fIRC            => 'https://github.com/Frca/fIRC/commits/master.atom',
       :GamingScheduler => 'https://github.com/Frca/GamingScheduler/commits/master.atom',
       :Lorris          => 'https://github.com/Tasssadar/Lorris/commits/master.atom',
-      :"Lorris mobile" => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
-      :soulcore        => 'http://soulwell.czechdream.cz/rss_git.php?parameters=p%3Dsoulcore.git%3Ba%3Datom',
+      :LorrisMobile    => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
       :Steam           => 'http://www.rssitfor.me/getrss?name=steam_games',
       :TrinityCore     => 'https://github.com/TrinityCore/TrinityCore/commits/master.atom',
       :Wine            => 'http://www.winehq.org/news/rss/'
