@@ -15,6 +15,8 @@ class Calculator
   match /^(\S) *(#{float_num})$/, use_prefix: false, method: :currency_symbol_amount
   match /^(#{float_num}) *(\S)$/, use_prefix: false, method: :currency_amount_symbol
 
+  @@appid = "9U7YJH-GJAQRRH92L"
+
   class << self
     attr_accessor :currency_shortcut
 
@@ -33,7 +35,9 @@ class Calculator
   end
 
   def calc(query)
-
+    url = "http://api.wolframalpha.com/v2/query?appid=#{@@appid}&input=#{CGI.escape(query)}&format=plaintext"
+    pods = WebPage.load_xml(url).xpath("queryresult/pod")
+    "#{pods[1]["title"]}: #{pods[1].xpath("subpod/plaintext").first.content}"
   end
 
   def currency_handle(m, amount, from, to)
