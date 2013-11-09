@@ -10,7 +10,7 @@ class Calculator
   float_num = /\d+(?:(?:\.|,)\d+)?/
   unit = /[a-zA-Z]+/
   match /c +(.+)/
-  match /^(#{float_num} +#{unit} +to +#{unit})$/, use_prefix: false
+  match /^(#{float_num} +#{unit} +to +#{unit})$/, use_prefix: false, method: :currency_execute
   match /^(#{float_num}) +(#{unit})$/, use_prefix: false, method: :currency_shortcut
   match /^(\S) *(#{float_num})$/, use_prefix: false, method: :currency_symbol_amount
   match /^(#{float_num}) *(\S)$/, use_prefix: false, method: :currency_amount_symbol
@@ -32,8 +32,21 @@ class Calculator
     m.reply(calc query)
   end
 
+  def calc(query)
+
+  end
+
+  def currency_handle(m, amount, from, to)
+    m.reply(currency_calc(amount, from, to))
+  end
+
+  def currency_execute(m, query)
+    params = currency_array(query)
+    currency_handle(m, params[1], params[2], params[3])
+  end
+
   def execute_shortcut(m, amount, currency)
-    execute(m, "#{amount} #{currency} to #{@currency[:to]}")
+    currency_handle(m, amount.to_s, currency.to_s, @currency[:to])
   end
 
   def currency_shortcut(m, amount, currency)
@@ -49,9 +62,13 @@ class Calculator
     currency_symbol_amount(m, symbol, amount)
   end
 
-  def calc(query)
-    url = "http://www.google.com/ig/calculator?hl=cs&q=#{CGI.escape(query)}"
-    json = WebPage.load_json(url) { |str| str.gsub(/(\w+): /, '"\1":') }
-    json[:error].length > 1 ? "No result" : json[:rhs]
+  def currency_array(query)
+    query.match /(\d+) (\w{0,4}) to (\w{2,4})/
+  end
+
+  def currency_calc(amount, from, to)
+    url = "https://www.google.com/finance/converter?a=#{CGI.escape(amount)}&from=#{CGI.escape(from)}&to=#{CGI.escape(to)}"
+    doc = WebPage.load_html(url)
+    doc.css("div#currency_converter_result").text
   end
 end
