@@ -50,6 +50,11 @@ Track.configure do |c|
       :reeshack => 95093,
       :Tassoid  => 365840,
   }
+  c.api_url = 'http://csfdapi.cz/'
+end
+
+Csfd.configure do |c|
+  c.api_url = 'http://csfdapi.cz/'
 end
 
 Rss.configure do |c|

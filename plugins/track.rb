@@ -14,6 +14,7 @@ class Track
 
   class << self
     attr_accessor :users
+    attr_accessor :api_url
 
     def configure(&block)
       yield self
@@ -23,6 +24,7 @@ class Track
   def initialize(*args)
     super
     @users = self.class.users
+    @api_url = self.class.api_url
     @last_titles = {}
     @init_done = false
     @@api_accessable = true
@@ -81,7 +83,7 @@ class Track
     @users.each { |user, csfd_id|
       threads << Thread.new {
         begin
-          doc = WebPage.load_json("http://csfdapi.cz/user/#{csfd_id}")
+          doc = WebPage.load_json(@api_url + "/user/#{csfd_id}")
           doc_items[user] = doc[:ratings]
         rescue OpenURI::HTTPError => e
           if e.message.strip.eql? "500"

@@ -10,6 +10,19 @@ class Csfd
 
   match /csfd (.+)/
 
+  class << self
+    attr_accessor :api_url
+
+    def configure(&block)
+      yield self
+    end
+  end
+
+  def initialize(*args)
+    super
+    @api_url = self.class.api_url
+  end
+
   def execute(m, query)
     m.reply( search(query), true)
   end
@@ -18,12 +31,12 @@ class Csfd
     unless Track.is_api_accessible?
       return "Api is currently not accesible"
     end
-    search_url = "http://csfdapi.cz/movie?search=#{CGI.escape(query)}"
+    search_url = @api_url + "/movie?search=#{CGI.escape(query)}"
     search_result = WebPage.load_json(search_url)
     raise NoMovieFoundError if search_result.length == 0
     movie_id =  search_result[0][:id]
 
-    movie_url = "http://csfdapi.cz/movie/#{movie_id}"
+    movie_url = @api_url + "/movie/#{movie_id}"
     movie_result = WebPage.load_json(movie_url)
 
     movie_title = Nokogiri::HTML(movie_result[:names][movie_result[:names].keys.first]).content
