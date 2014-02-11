@@ -39,8 +39,13 @@ class Csfd
     end
     result += " - #{movie_link}"
     result
-  rescue
-    "No result"
+  rescue => e
+    if e.message.start_with? "503"
+      "Currently unavailable"
+    else
+      "No result"
+    end
+
   end
 end
 
