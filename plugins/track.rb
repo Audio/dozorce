@@ -107,7 +107,7 @@ class Track
   end
 
   def movie_name(item)
-    movie_names = item[:movie][:name]
+    movie_names = item[:movie][:names]
     movie_names[movie_names.keys.first]
   end
 
