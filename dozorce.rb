@@ -1,6 +1,7 @@
 #encoding: utf-8
 require 'cinch'
 Dir["./plugins/*.rb"].each { |file| require_relative file }
+Dir["./plugins/*/plugin.rb"].each { |file| require_relative file }
 
 
 bot = Cinch::Bot.new do
@@ -24,7 +25,7 @@ bot = Cinch::Bot.new do
         Twitter,
         Weather,
         Wiki,
-        Youtube]
+        YoutubePlugin]
     c.plugins.prefix = ''
   end
 end
