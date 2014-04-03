@@ -7,7 +7,6 @@ require_relative '../plugins/calculator/services/wolframalpha'
 require_relative '../plugins/calculator/config'
 
 
-=begin
 describe Calculator::Config do
   before :all do
     @routes = Calculator::Config[:routes]
@@ -65,7 +64,7 @@ describe Calculator::Services::WolframAlpha do
     expect(result).to eq('Result: 36')
   end
 end
-=end
+
 
 describe Calculator::Services::GoogleFinance do
   before(:all) do
