@@ -1,31 +1,110 @@
-require_relative 'spec_helper'
-require_relative '../plugins/calculator'
+#encoding: utf-8
+
+require 'cinch'
+require_relative '../utils/webpage'
+require_relative '../plugins/calculator/services/googlefinance'
+require_relative '../plugins/calculator/services/wolframalpha'
+require_relative '../plugins/calculator/config'
 
 
-describe Calculator do
-  include SpecHelper
+=begin
+describe Calculator::Config do
+  before :all do
+    @routes = Calculator::Config[:routes]
+  end
 
+  it 'should match standard prefix' do
+    'c 1 + 1'.should match @routes[:standard_prefix]
+  end
+
+  it 'should match symbol prefix' do
+    '$12'.should match @routes[:symbol_prefix]
+  end
+
+  it 'should match symbol postfix' do
+    '12 €'.should match @routes[:symbol_postfix]
+    '12 £'.should match @routes[:symbol_postfix]
+  end
+
+  it 'should match long converter pattern' do
+    '12 stones to kilograms'.should match @routes[:converter_long]
+  end
+
+  it 'should match short converter pattern' do
+    '12 usd'.should match @routes[:converted_short]
+  end
+
+  it 'should not match nonsense convertions' do
+    '12 usd to czk to eur to usd'.should_not match @routes[:converter_long]
+  end
+end
+
+
+describe Calculator::Services::WolframAlpha do
   before(:all) do
-    initialize_plugin(Calculator)
+    @instance = Calculator::Services::WolframAlpha.new(Calculator::Config, WebPage)
   end
 
-  it "should reply to prefixed messages" do
-    should_reply('!c 0.00000001 au to km', '1.49597871 kilometers')
-    should_reply('!c 33.8 f to c', '1 degree Celsius')
-    should_reply('!c 9 + 9', '18')
+  it 'should convert distance units' do
+    result = @instance.convert '0.00000001 au to km'
+    expect(result).to eq('Result: 1.5 km  (kilometers)')
   end
 
-  it "should reply to possibly invalid prefixed messages" do
-    should_reply('!c 17.a usd to czk', 'No result')
+  it 'should convert temperature units' do
+    result = @instance.convert '33.8 f to c'
+    expect(result).to eq('Result: 1 °C  (degree Celsius)')
   end
 
-  it "should reply to unprefixed messages" do
-    should_reply('33.8 f to c', '1 degree Celsius')
-    should_reply('18 stones to kilograms', '114.305277 kilograms')
+  it 'should not convert different units' do
+    result = @instance.convert '33.8 f to kilograms'
+    expect(result).to eq('Result:  °F  (degrees Fahrenheit) and  kg  (kilograms) are not compatible.')
   end
 
-  it "should not reply to invalid unprefixed messages" do
-    should_not_reply('zdarec!')
-    should_not_reply('17.a usd to czk')
+  it 'should do calculations' do
+    result = @instance.convert '9 + 9 * 3'
+    expect(result).to eq('Result: 36')
+  end
+end
+=end
+
+describe Calculator::Services::GoogleFinance do
+  before(:all) do
+    @instance = Calculator::Services::GoogleFinance.new(Calculator::Config, WebPage)
+    @result_pattern = /^12 USD = [0-9\.]+ CZK$/
+  end
+
+  it 'should convert currencies' do
+    amount = 12
+    from = 'usd'
+    to = 'czk'
+
+    result = @instance.convert amount, from, to
+    expect(result).to match @result_pattern
+  end
+
+  it 'should convert amount to default currency' do
+    amount = 12
+    from = 'usd'
+
+    result = @instance.convert amount, from
+    expect(result).to match @result_pattern
+  end
+
+  it 'should accept string amount' do
+    amount = '12'
+    from = 'usd'
+    to = 'czk'
+
+    result = @instance.convert amount, from, to
+    expect(result).to match @result_pattern
+  end
+
+  it 'should not do nonsense conversions' do
+    amount = 12
+    from = 'usd'
+    to = 'kilograms'
+
+    result = @instance.convert amount, from, to
+    expect(result).to eq 'Conversion failed'
   end
 end

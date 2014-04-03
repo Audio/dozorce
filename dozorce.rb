@@ -1,4 +1,4 @@
-#encoding: utf-8
+
 require 'cinch'
 Dir["./plugins/*.rb"].each { |file| require_relative file }
 Dir["./plugins/*/plugin.rb"].each { |file| require_relative file }
@@ -13,7 +13,7 @@ bot = Cinch::Bot.new do
     c.encoding = 'UTF-8'
     c.plugins.plugins = [
         Bash,
-        Calculator,
+        Calculator::Plugin,
         Csfd,
         Google,
         Help,
@@ -28,18 +28,6 @@ bot = Cinch::Bot.new do
         Youtube::Plugin]
     c.plugins.prefix = ''
   end
-end
-
-Calculator.configure do |c|
-  c.currency_shortcut = {
-      :to   => 'czk',
-      :from => %w(usd eur euro euros),
-      :symbols => {
-          :usd   => '$',
-          :eur   => '€',
-          :pound => '£'
-      }
-  }
 end
 
 Track.configure do |c|
