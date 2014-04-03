@@ -1,23 +1,27 @@
 
 require_relative '../../utils/webpage'
-require_relative './routes'
-require_relative './service'
+require_relative './services/youtube'
+require_relative './config'
 
 
-class YoutubePlugin
-  include Cinch::Plugin
+module Youtube
 
-  set :help, 'YouTube plugin automatically prints video titles from detected URLs.'
+  class Plugin
+    include Cinch::Plugin
 
-  match YoutubeRoutes::LONG_URL, use_prefix: false
-  match YoutubeRoutes::SHORT_URL, use_prefix: false
+    set :help, 'YouTube plugin automatically prints video titles from detected URLs.'
 
-  def initialize(*args)
-    super
-    @youtube = YoutubeService.new(WebPage)
+    match Config[:routes][:long_url], use_prefix: false
+    match Config[:routes][:short_url], use_prefix: false
+
+    def initialize(*args)
+      super
+      @youtube = Services::Youtube.new(WebPage)
+    end
+
+    def execute(m, video_id)
+      m.reply("YouTube: #{@youtube.fetch_title(video_id)}")
+    end
   end
 
-  def execute(m, video_id)
-    m.reply("YouTube: #{@youtube.fetch_title(video_id)}")
-  end
 end

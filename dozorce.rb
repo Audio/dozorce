@@ -25,7 +25,7 @@ bot = Cinch::Bot.new do
         Twitter,
         Weather,
         Wiki,
-        YoutubePlugin]
+        Youtube::Plugin]
     c.plugins.prefix = ''
   end
 end
