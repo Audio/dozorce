@@ -19,6 +19,7 @@ bot = Cinch::Bot.new do
         Help,
         Rejoin,
         Rss,
+        Spotify,
         Title,
         Track,
         Translator,
