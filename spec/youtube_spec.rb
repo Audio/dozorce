@@ -23,13 +23,13 @@ describe Youtube::Config do
 
   it 'should match short URLs' do
     'http://youtu.be/K-CElVjlY08'.should match @SHORT_URL
-    'http://youtu.be/K-CElVjlY08&feature=feedf'.should match @SHORT_URL
+    'http://youtu.be/K-CElVjlY08?feature=feedf&hd=1'.should match @SHORT_URL
   end
 
   it 'should not match invalid short URLs' do
     'http://youtu.be/K-CElVjlY0&feature=feedf'.should_not match @SHORT_URL
-    'http://youtu.be/K-CEla?jlY08&feature=feedf'.should_not match @SHORT_URL
-    'http://youtu.be/K-CEEEElVjlY08&feature=feedf'.should_not match @SHORT_URL
+    'http://youtu.be/K-CEla?jlY08?porn=true'.should_not match @SHORT_URL
+    'http://youtu.be/K-CEEEElVjlY08?porn=true&feature=feedf'.should_not match @SHORT_URL
   end
 end
 
