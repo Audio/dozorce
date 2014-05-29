@@ -14,7 +14,7 @@ class Sed
   def listen(m)
     # We can't use execute and match, because listen rewrites the last message
     # with s/X/Y/ before execute is called.
-    match = /s\/([^\/]*)\/([^\/]*)\/?g?/.match(m.message)
+    match = /^s\/([^\/]*)\/([^\/]*)\/?g?$/.match(m.message)
     if match && match.length >= 3 then
       replace(m, match[1], match[2])
     else
