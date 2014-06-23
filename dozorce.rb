@@ -59,7 +59,6 @@ Rss.configure do |c|
       :Lorris          => 'https://github.com/Tasssadar/Lorris/commits/master.atom',
       :LorrisMobile    => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
       :Steam           => 'http://www.rssitfor.me/getrss?name=steam_games',
-      :TrinityCore     => 'https://github.com/TrinityCore/TrinityCore/commits/master.atom',
       :Wine            => 'http://www.winehq.org/news/rss/'
   }
 end
