@@ -4,6 +4,11 @@ Dozorce is a collection of plugins for the [Cinch](https://github.com/cinchrb/ci
 
 [![Build Status](https://travis-ci.org/Audio/dozorce.png?branch=master)](https://travis-ci.org/Audio/dozorce)
 
+## Installation
+You can use `bundle` to install required ruby gems:
+
+    sudo bundle install
+
 
 ## Usage
 See installation steps and usage instructions on the [cinch project page](https://github.com/cinchrb/cinch/blob/master/README.md).
