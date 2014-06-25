@@ -5,7 +5,7 @@ class Spotify
 
   Links = {
     :uri_matcher => /spotify\:([a-z]+)\:([a-zA-Z0-9]+)/,
-    :http_matcher => /open\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9]+)/
+    :http_matcher => /(?:https?:\/\/)?(?:open|play)\.spotify\.com\/([a-z]+)\/([a-zA-Z0-9]+)/
   }
 
   match Links[:uri_matcher], use_prefix: false, method: :get_http
