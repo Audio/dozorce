@@ -51,11 +51,10 @@ end
 Rss.configure do |c|
   c.feeds = {
       :adt             => 'https://sites.google.com/a/android.com/tools/recent/posts.xml',
+      :CestujLevne     => 'http://cestujlevne.com/feed/',
       :AndroidDeals    => 'http://www.androidpolice.com/topics/deals-2/feed/',
       :bashoid         => 'https://github.com/Audio/bashoid/commits/master.atom',
       :dozorce         => 'https://github.com/Audio/dozorce/commits/master.atom',
-      :fIRC            => 'https://github.com/Frca/fIRC/commits/master.atom',
-      :GamingScheduler => 'https://github.com/Frca/GamingScheduler/commits/master.atom',
       :Lorris          => 'https://github.com/Tasssadar/Lorris/commits/master.atom',
       :LorrisMobile    => 'https://github.com/Tasssadar/lorris_mobile/commits/master.atom',
       :Steam           => 'http://www.rssitfor.me/getrss?name=steam_games',
