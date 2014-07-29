@@ -83,7 +83,7 @@ class Track
     @users.each { |user, csfd_id|
       threads << Thread.new {
         begin
-          doc = WebPage.load_json(@api_url + "/user/#{csfd_id}")
+          doc = WebPage.load_json "#{@api_url}user/#{csfd_id}"
           doc_items[user] = doc[:ratings]
         rescue OpenURI::HTTPError => e
           if e.message.strip.eql? "500"

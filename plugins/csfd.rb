@@ -31,13 +31,11 @@ class Csfd
     unless Track.is_api_accessible?
       return "Api is currently not accesible"
     end
-    search_url = @api_url + "/movie?search=#{CGI.escape(query)}"
-    search_result = WebPage.load_json(search_url)
+    search_result = WebPage.load_json "#{@api_url}movie?search=#{CGI.escape(query)}"
     raise NoMovieFoundError if search_result.length == 0
     movie_id =  search_result[0][:id]
 
-    movie_url = @api_url + "/movie/#{movie_id}"
-    movie_result = WebPage.load_json(movie_url)
+    movie_result = WebPage.load_json "#{@api_url}movie/#{movie_id}"
 
     movie_title = Nokogiri::HTML(movie_result[:names][movie_result[:names].keys.first]).content
     movie_country = movie_result[:countries].join(' / ')
