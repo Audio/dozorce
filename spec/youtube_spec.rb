@@ -41,12 +41,12 @@ describe Youtube::Services::Youtube do
 
   it 'should return video title' do
     title = @instance.fetch_title 'dBGtZ-HMJmI'
-    expect(title).to eq 'Springwater -  I will return'
+    expect(title).to eq 'Springwater - I will return'
   end
 
   it 'should return error message for invalid video id' do
     title = @instance.fetch_title 'idunno'
-    expect(title).to eq 'Unavailable video (server returned 400 Bad Request)'
+    expect(title).to eq 'Unavailable video (server returned 404 Not Found)'
   end
 
   it 'should return error message for unknown video' do
