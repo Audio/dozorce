@@ -14,6 +14,7 @@ bot = Cinch::Bot.new do
     c.plugins.plugins = [
         Bash,
         Calculator::Plugin,
+        Catcore::Plugin,
         Csfd,
         Google,
         Help,
