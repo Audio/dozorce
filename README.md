@@ -3,6 +3,7 @@
 Dozorce is a collection of plugins for the [Cinch](https://github.com/cinchrb/cinch) IRC bot written in Ruby.
 
 [![Build Status](https://travis-ci.org/Audio/dozorce.png?branch=master)](https://travis-ci.org/Audio/dozorce)
+[![volkswagen status](https://auchenberg.github.io/volkswagen/volkswargen_ci.svg?v=1)](https://github.com/auchenberg/volkswagen)
 
 ## Installation
 You can use `bundle` to install required ruby gems:
